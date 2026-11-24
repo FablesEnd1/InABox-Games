@@ -1,16 +1,18 @@
 # InABox Games — Forager COI test
 
-This is a separate test build. The live `main` branch, production wrapper, and current live deployment are unchanged.
+This is a separate test build. The live `main` branch and existing Apps Script deployment are not replaced.
 
 ## Files
-- `public/index.html`: the complete existing InABox frontend with the Apps Script bridge and cross-origin-isolated iframe permission added. Existing UI/features are retained.
-- `AppsScript-Code.gs`: the existing Apps Script backend with an allowlisted JSON `doPost` dispatcher added; existing `doGet` and other functions remain.
-- `worker.js` and `wrangler.toml`: Cloudflare Worker that serves the static frontend and proxies `/__inabox_api` to Apps Script.
+- `public/index.html`: the complete existing InABox frontend with its existing features retained, plus the Apps Script API bridge and cross-origin-isolated iframe permission.
+- `AppsScript-Code.gs`: the existing Apps Script backend with an allowlisted JSON `doPost` dispatcher added; the existing `doGet` and all other functions remain.
+- `worker.js` and `wrangler.toml`: Cloudflare Worker and static asset configuration.
 
-## Test setup
-1. In the Apps Script editor, add the `doPost(e)` function from this file to the existing project (or replace the project code with this complete file, keeping the same project and Script Properties). Keep the existing `doGet`; redeploy the web app so the current `/exec` deployment includes `doPost`.
-2. Deploy this directory with Wrangler: `cd cloudflare-test && npx wrangler deploy`.
-3. Test the Worker URL without changing the live site.
+## Safe test setup
+1. Open the existing Apps Script project and add the `doPost(e)` dispatcher from `AppsScript-Code.gs` (or replace Code.gs with this complete version). Do not delete the existing `Index.html` project file or Script Properties.
+2. Create a **new web app deployment** from the updated script. Keep the current production deployment unchanged. Copy the new test deployment's `/exec` URL.
+3. In `wrangler.toml`, replace `PASTE_NEW_TEST_APPS_SCRIPT_EXEC_URL_HERE` with that new test deployment URL.
+4. Deploy from this folder with Wrangler: `cd cloudflare-test && npx wrangler deploy`.
+5. Test the new Worker URL only. Your existing live site remains on its current URL.
 
 ## Verify
 Check gallery loading, search, favorites, settings, existing game modal, SWF loading, artwork, shared backgrounds, admin tools, and Forager inside the existing player.
