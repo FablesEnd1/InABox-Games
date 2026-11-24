@@ -3038,7 +3038,8 @@ function diagnoseThumbnails() {
 }
 
 
-// Artwork URL validation shared by manual controls and background refreshes.function isUsableArtworkUrl(value) {
+// Artwork URL validation shared by manual controls and background refreshes.
+function isUsableArtworkUrl(value) {
   if (typeof value !== "string") return false;
   const url = value.trim();
   return /^https?:\/\//i.test(url) &&
