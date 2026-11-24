@@ -8,4 +8,4 @@ binding = "ASSETS"
 run_worker_first = true
 
 [vars]
-APPS_SCRIPT_EXEC_URL = "PASTE_NEW_TEST_APPS_SCRIPT_EXEC_URL_HERE"
+APPS_SCRIPT_EXEC_URL = "https://script.google.com/a/macros/sd215.net/s/AKfycbysXIUlPVSOhdPomCTjJe8fcY9Dyd5HzV-ox9OEJj8jwHYxDOY_pQCsX_KQuWBzbrXT/exec"
