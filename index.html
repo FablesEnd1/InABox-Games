@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>InABox Games</title>
+
   <style>
     html, body {
       margin: 0;
@@ -13,6 +14,7 @@
       height: 100%;
       background: #000;
       overflow: hidden;
+      font-family: Arial, sans-serif;
     }
 
     #frame {
@@ -21,14 +23,148 @@
       height: 100%;
       border: none;
     }
+
+    /* Popup background */
+    #noticeOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.82);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      padding: 20px;
+    }
+
+    /* Popup box */
+    #noticeBox {
+      width: 100%;
+      max-width: 420px;
+      background: #171717;
+      color: white;
+      border: 1px solid #444;
+      border-radius: 16px;
+      padding: 26px;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,.6);
+      box-sizing: border-box;
+    }
+
+    #noticeBox h2 {
+      margin: 0 0 14px;
+      font-size: 23px;
+    }
+
+    #noticeBox p {
+      color: #ccc;
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+
+    .noticeButton {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      margin-top: 12px;
+      border: none;
+      border-radius: 9px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #newSiteButton {
+      background: #fff;
+      color: #111;
+    }
+
+    #stayButton {
+      background: #333;
+      color: white;
+    }
+
+    .rememberChoice {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+      color: #aaa;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .rememberChoice input {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
   </style>
 </head>
+
 <body>
+
   <iframe
     id="frame"
     src="https://inabox-games-forager-test.weight-joseph2029.workers.dev/"
     allowfullscreen
     scrolling="yes">
   </iframe>
+
+  <div id="noticeOverlay">
+    <div id="noticeBox">
+      <h2>Important Website Notice</h2>
+
+      <p>
+        This version of InABox Games is no longer receiving updates.
+        Some games may not work properly or may be outdated.
+        <br><br>
+        We've moved to a new website with updates and improvements!
+      </p>
+
+      <button
+        class="noticeButton"
+        id="newSiteButton"
+        onclick="goToNewSite()">
+        Go to the New Site
+      </button>
+
+      <button
+        class="noticeButton"
+        id="stayButton"
+        onclick="stayHere()">
+        Stay on This Site
+      </button>
+
+      <label class="rememberChoice">
+        <input type="checkbox" id="dontShowAgain">
+        Do not show again
+      </label>
+    </div>
+  </div>
+
+  <script>
+    const overlay = document.getElementById("noticeOverlay");
+
+    // Check whether the visitor previously dismissed the notice permanently.
+    if (localStorage.getItem("inaboxNoticeDismissed") === "true") {
+      overlay.style.display = "none";
+    }
+
+    function goToNewSite() {
+      window.location.href =
+        "https://inabox-games.fables-end.workers.dev/";
+    }
+
+    function stayHere() {
+      if (document.getElementById("dontShowAgain").checked) {
+        localStorage.setItem("inaboxNoticeDismissed", "true");
+      }
+
+      overlay.style.display = "none";
+    }
+  </script>
+
 </body>
 </html>
